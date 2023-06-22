@@ -105,7 +105,7 @@ console.log(`El area de este rectangulo es: ${rectangulo1.area()} cm.`);
 /* 4- Escribe una clase Producto para crear objetos. Estos objetos, deben presentar las propiedades código, nombre y precio, además del método imprime datos, el cual escribe por pantalla los valores de sus propiedades.
 Posteriormente, cree tres instancias de este objeto y guárdalas en un array.
 Por último, utilice el método imprime datos para mostrar por pantalla los valores de los tres objetos instanciados.
-*/
+
 
 class Producto {
     constructor(codigo, nombre, precio){
@@ -124,6 +124,134 @@ let producto3 = new Producto ("M300-05", "Iphone 13", 850);
 
 let productosArray = [producto1, producto2, producto3];
 
-producto1.imprimeDatos();
-producto2.imprimeDatos();
-producto3.imprimeDatos();
+for (const mostrarProducto of productosArray) {
+     mostrarProducto.imprimeDatos();
+}
+
+
+/* 5- Crea una clase llamada Persona que siga las siguientes condiciones:
+Sus propiedades son: nombre, edad, DNI, sexo (H hombre, M mujer), peso y altura, año de nacimiento. Si quieres añadir alguna propiedad extra puedes hacerlo.
+Los métodos que se debe poder utilizar  son:
+mostrarGeneracion: este método debe mostrar un mensaje indicando a qué generación pertenece la persona creada y cual es el rasgo característico de esta generación.
+Para realizar este método tener en cuenta la tabla de generaciones.
+esMayorDeEdad: indica si es mayor de edad, devuelve un mensaje indicando que la persona es mayor de edad.
+mostrarDatos: devuelve toda la información del objeto.
+generaDNI(): genera un número aleatorio de 8 cifras.
+
+
+class Persona {
+    constructor(nombre, edad, dni, sexo, peso, altura, anioNacimiento){
+        this.nombre = nombre;
+        this.edad = edad;
+        this.dni = dni;
+        this.sexo = sexo;
+        this.peso = peso;
+        this.altura = altura;
+        this.anioNacimiento = anioNacimiento;
+    }
+    mostrarGeneracion(){
+        //este método debe mostrar un mensaje indicando a qué generación pertenece la persona creada y cual es el rasgo característico de esta generación.
+        if (this.anioNacimiento >= 1994 && this.anioNacimiento < 2011) {
+            console.log(`Perteneces a la generacion Z y el rasgo caracteristico de esta generacion es la irreverencia :P .`);
+        } else if (this.anioNacimiento >= 1981 && this.anioNacimiento < 1994){
+            console.log(`Perteneces a la generacion Y (millenials) y el rasgo caracteristico de esta generacion es la frustracion :( .`);
+        } else if (this.anioNacimiento >= 1969 && this.anioNacimiento < 1981){
+            console.log(`Perteneces a la generacion X y el rasgo caracteristico de esta generacion es la obsesion por el exito ;) .`);
+        } else if (this.anioNacimiento >= 1949 && this.anioNacimiento < 1969){
+            console.log(`Perteneces a la generacion Baby Boom el rasgo caracteristico de esta generacion es la ambicion ($_$) .`);
+        } else if (this.anioNacimiento >= 1930 && this.anioNacimiento < 1949){
+            console.log(`Perteneces a la Silent Genereation (los ninios de la posguerra) y el rasgo caracteristico de esta generacion es la austeridad :| .`);
+        }
+    }
+    esMayorDeEdad(){
+        //indica si es mayor de edad, devuelve un mensaje indicando que la persona es mayor de edad.
+        if (this.edad >= 18) {
+            console.log("Sos mayor de edad");
+        }
+    }
+    mostrarDatos(){
+        console.log(`El nombre de la persona ingresada es ${this.nombre}, su edad es ${this.edad}, de DNI ${this.dni}, sexo ${this.sexo}, con un peso de ${this.peso}kg, ${this.altura}m de altura y nació en el año ${this.anioNacimiento}.`);
+    }
+    generaDNI(){
+        this.dni = Math.floor(Math.random()*100000000);
+    }
+}
+
+const cande = new Persona("Candela", 26, 31218444, "F", 58, 149, 1930);
+
+
+
+
+/* 6- Crear una clase Libro que contenga al menos las siguientes propiedades:
+ISBN
+Título
+Autor
+Número de páginas
+
+Crear sus respectivos métodos get y set correspondientes para cada propiedad. Crear el método mostrarLibro() para mostrar la información relativa al libro con el siguiente formato:
+
+“El libro xxx con ISBN xxx creado por el autor xxx tiene páginas xxx”
+
+Crear al menos 2 objetos libros y utilizar el método mostrarLibro();
+Por último, indicar cuál de los 2 objetos “libros” tiene más páginas.
+
+
+
+class Libro {
+    constructor(isbn, titulo, autor, numPag){
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.numPag = numPag;
+    }
+    set ponerIsbn(valor){
+        this.isbn = valor;
+    }
+    get verIsbn(){
+        return this.isbn;
+    }
+    set ponerTitulo(valor){
+        this.titulo = valor;
+    }
+    get verTitulo (){
+        return this.titulo;
+    }
+    set ponerAutor(valor){
+        this.autor = valor;
+    }
+    get verAutor(){
+        return this.autor;
+    }
+    set ponerNumPag(valor){
+        this.numPag = valor;
+    }
+    get verNumPag(){
+        return this.numPag;
+    }
+    mostrarLibro(){
+        console.log(`El libro ${this.titulo} con ISBN ${this.isbn} creado por el autor ${this.autor} tiene paginas ${this.numPag}`);
+    }
+}
+
+const libro1 = new Libro()
+libro1.ponerIsbn = 9780345426260;
+libro1.ponerTitulo = "El Psicoanalista";
+libro1.ponerAutor = "John Katzenbach";
+libro1.ponerNumPag = 435;
+
+const libro2 = new Libro()
+libro2.ponerIsbn = 9783140464079;
+libro2.ponerTitulo = "El Principito";
+libro2.ponerAutor = "Antoine de Saint-Exupéry";
+libro2.ponerNumPag = 128;
+
+
+function cantidadPaginas(){
+        if (libro1.numPag > libro2.numPag) {
+            console.log(`${libro1.titulo} tiene mayor cantidad de hojas.`);
+        } else{
+            console.log(`${libro2.titulo} tiene mayor cantidad de hojas.`);
+        }
+}
+
+*/
