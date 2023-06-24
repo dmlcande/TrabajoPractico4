@@ -274,7 +274,7 @@ agendaLlena(): indica si la agenda está llena.
 huecosLibres(): indica cuántos contactos más podemos ingresar.
 
 Crea un menú con opciones que serán seleccionadas por el usuario usando un prompt, las salidas de las operaciones seleccionadas por el usuario se pueden mostrar en pantalla y  por consola.
-*/
+
 
 
 class Contacto {
@@ -311,21 +311,22 @@ class Agenda {
 
   listarContactos(){
       //lista toda la agenda.
-      alert(`Tus contactos son: ${this.contactos}`);
-
-      /* for (const contactito of this.contactos) {
-        alert(`Tus contactos son: ${contactito.nombre} - ${contactito.telefono}.`);
-      } */
+      for (const contactito of this.contactos) {
+        alert(`Tus contactos son: ${contactito.nombre} - ${contactito.telefono}`);
+      }
   }
 
   buscarContacto(nombre){
       //busca un contacto por su nombre y muestra su teléfono.
+      let banderita = true;
       for (const contactito of this.contactos) {
         if(contactito.nombre === nombre){
           alert(`El telefono de ${nombre} es ${contactito.telefono}`);
-        } else {
-          alert(`No se encontró un contacto con el nombre ${nombre}`);
+          banderita = false;
         }
+      }
+      if (banderita) {
+        alert(`No se encontró un contacto con el nombre ${nombre}`);
       }
   }
 
@@ -349,9 +350,9 @@ class Agenda {
     }
   }
 
-  huecosLibre(){
+  huecosLibres(){
     //indica cuantos contactos mas podemos ingresar.
-    return this.tamanio - this.contactos.length;
+    alert(`Te queda un total de ${this.tamanio - this.contactos.length} espacios libres en tu agenda.`);
   }
 }
 
@@ -365,8 +366,8 @@ function opcionesMenu (){
     case "1":
       const nombre = prompt("Ingrese el nombre del contacto:");
       const telefono = prompt("Ingrese el teléfono del contacto:");
-      const contacto = new Contacto(nombre, telefono);
-      agenda.aniadirContacto(contacto);
+      const contactoNuevo = new Contacto(nombre, telefono);
+      agenda.aniadirContacto(contactoNuevo);
       break;
 
     case "2":
@@ -413,148 +414,70 @@ opcionesMenu();
 
 
 
+/* 8- Crea una clase llamada "Persona" que tenga las propiedades "nombre", "edad" y "profesión", y los métodos "saludar" y "despedirse". Luego, crea dos objetos de la clase "Persona" con diferentes valores para sus propiedades y llama a sus métodos "saludar" y "despedirse".
 
-/* Definimos la clase Contacto que representa un contacto con nombre y teléfono
-class Contacto {
-    constructor(nombre, telefono) {
-      this.nombre = nombre;
-      this.telefono = telefono;
-    }
+
+class Persona{
+  constructor(nombre, edad, profesion){
+    this.nombre = nombre;
+    this.edad = edad;
+    this.profesion = profesion;
   }
-  
-  // Definimos la clase Agenda que representa una agenda telefónica
-  class Agenda {
-    constructor(tamano = 10) {
-      this.contactos = [];
-      this.tamano = tamano;
-    }
-  
-    // Método para añadir un contacto a la agenda
-    aniadirContacto(contacto) {
-      if (this.contactos.length >= this.tamano) {
-        console.log("La agenda está llena. No se puede añadir más contactos.");
-        return;
-      }
-      this.contactos.push(contacto);
-      console.log("Contacto añadido a la agenda.");
-    }
-  
-    // Método para comprobar si un contacto existe en la agenda
-    existeContacto(contacto) {
-      for (const c of this.contactos) {
-        if (c.nombre === contacto.nombre) {
-          console.log("El contacto existe en la agenda.");
-          return;
-        }
-      }
-      console.log("El contacto no existe en la agenda.");
-    }
-  
-    // Método para listar todos los contactos de la agenda
-    listarContactos() {
-      console.log("Lista de contactos:");
-      for (const contacto of this.contactos) {
-        console.log(`Nombre: ${contacto.nombre} - Teléfono: ${contacto.telefono}`);
-      }
-    }
-  
-    // Método para buscar un contacto por nombre y mostrar su teléfono
-    buscarContacto(nombre) {
-      for (const contacto of this.contactos) {
-        if (contacto.nombre === nombre) {
-          console.log(`El teléfono de ${nombre} es ${contacto.telefono}`);
-          return;
-        }
-      }
-      console.log(`No se encontró ningún contacto con el nombre ${nombre}`);
-    }
-  
-    // Método para eliminar un contacto de la agenda
-    eliminarContacto(contacto) {
-      const index = this.contactos.findIndex(c => c.nombre === contacto.nombre);
-      if (index !== -1) {
-        this.contactos.splice(index, 1);
-        console.log("Contacto eliminado de la agenda.");
-      } else {
-        console.log("No se encontró el contacto en la agenda.");
-      }
-    }
-  
-    // Método para comprobar si la agenda está llena
-    agendaLlena() {
-      if (this.contactos.length >= this.tamano) {
-        console.log("La agenda está llena.");
-      } else {
-        console.log("La agenda aún tiene espacio disponible.");
-      }
-    }
-  
-    // Método para mostrar cuántos contactos más se pueden ingresar
-    huecosLibres() {
-      const huecos = this.tamano - this.contactos.length;
-      console.log(`La agenda tiene ${huecos} contactos disponibles.`);
-    }
+  saludar(){
+    console.log(`Hola ${this.nombre}!!`);
   }
-  
-  // Creamos una instancia de Agenda con un tamaño por defecto de 10
-  const agenda = new Agenda();
-  
-  // Función para mostrar el menú y procesar las opciones seleccionadas por el usuario
-  function mostrarMenu() {
-    while (true) {
-      const opcion = prompt(
-        "Seleccione una opción:\n1. Añadir contacto\n2. Comprobar existencia de contacto\n3. Listar contactos\n4. Buscar contacto\n5. Eliminar contacto\n6. Comprobar si la agenda está llena\n7. Mostrar espacios disponibles\n8. Salir"
-      );
-  
-      switch (opcion) {
-        case "1":
-          const nombre = prompt("Ingrese el nombre del contacto:");
-          const telefono = prompt("Ingrese el teléfono del contacto:");
-          const contacto = new Contacto(nombre, telefono);
-          agenda.aniadirContacto(contacto);
-          break;
-  
-        case "2":
-          const nombreExiste = prompt("Ingrese el nombre del contacto a comprobar:");
-          const contactoExiste = new Contacto(nombreExiste, "");
-          agenda.existeContacto(contactoExiste);
-          break;
-  
-        case "3":
-          agenda.listarContactos();
-          break;
-  
-        case "4":
-          const nombreBuscar = prompt("Ingrese el nombre del contacto a buscar:");
-          agenda.buscarContacto(nombreBuscar);
-          break;
-  
-        case "5":
-          const nombreEliminar = prompt("Ingrese el nombre del contacto a eliminar:");
-          const contactoEliminar = new Contacto(nombreEliminar, "");
-          agenda.eliminarContacto(contactoEliminar);
-          break;
-  
-        case "6":
-          agenda.agendaLlena();
-          break;
-
-        case "7":
-          agenda.huecosLibres();
-          break;
-
-        case "8":
-          console.log("¡Hasta luego!");
-          return;
- 
-        default:
-          console.log("Opción inválida. Por favor, seleccione una opción válida.");
-          break;
-      }
-    }
+  despedirse(){
+    console.log(`Adios ${this.nombre}!!`);
   }
+}
 
-  // Ejecutamos el menú de la agenda
-  mostrarMenu();
-  */
+const pablo = new Persona ("Pablo", 29, "CEO");
+pablo.saludar();
+const walter = new Persona ("Walter", 30, "Founder");
+walter.saludar();
 
+pablo.despedirse();
+walter.despedirse();
+
+
+
+/* 9- Crea una clase llamada "Animal" que tenga las propiedades "nombre" y "edad", y el método "emitirSonido". Luego, crea dos clases hijas llamadas "Perro" y "Gato" que hereden de "Animal" y tengan su propio método "emitirSonido". Finalmente, crea dos objetos, uno de la clase "Perro" y otro de la clase "Gato", y llama a sus métodos "emitirSonido" para verificar que cada animal emite el sonido adecuado.
+
+class Animal{
+  constructor(nombre, edad){
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+  emitirSonido(){
+    alert(`Mi mascota hace ruido`)
+  }
+}
+
+class Perro extends Animal{
+  constructor(nombre, edad, raza){
+    super(nombre, edad);
+    this.raza = raza;
+  }
+  emitirSonido(){
+    console.log(`Mi perro se llama ${this.nombre}, tiene ${this.edad} años, es de raza ${this.raza} y hace GUAU!`);
+  }
+}
+
+class Gato extends Animal{
+  constructor(nombre, edad, color){
+    super(nombre, edad);
+    this.color = color;
+  }
+  emitirSonido(){
+    console.log(`Mi gato se llama ${this.nombre}, tiene ${this.edad} años, es de color ${this.color} y hace MIAU!`);
+  }
+}
+
+const lola = new Perro("Lola", 14, "labrador");
+const cohete = new Gato("Cohete", 3, "blanco y gris");
+
+lola.emitirSonido();
+cohete.emitirSonido();
+
+
+*/
